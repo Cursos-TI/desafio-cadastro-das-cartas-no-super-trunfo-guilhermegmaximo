@@ -1,0 +1,139 @@
+#include <stdio.h>
+
+typedef struct {
+    unsigned long int populacao;
+    float area;
+    float pib;
+    int pontos_turisticos;
+    float densidade_populacional;
+    float pib_per_capita;
+    float super_poder;
+} Cidade;
+
+// Função para calcular a Densidade Populacional e PIB per Capita
+void calcular_atributos(Cidade* cidade) {
+    cidade->densidade_populacional = cidade->populacao / cidade->area;
+    cidade->pib_per_capita = cidade->pib * 1000000000 / cidade->populacao; // PIB per capita em USD
+}
+
+// Função para calcular o Super Poder
+void calcular_super_poder(Cidade* cidade) {
+    cidade->super_poder = cidade->populacao + cidade->area + cidade->pib + cidade->pontos_turisticos + 
+                          (1 / cidade->densidade_populacional) + cidade->pib_per_capita;
+}
+
+// Função para comparar os atributos entre as duas cidades
+void comparar_atributos(Cidade cidade1, Cidade cidade2) {
+    int resultado = 0;  // 1 para cidade1 vence, 0 para cidade2 vence
+
+    // Comparando população
+    printf("Comparando População: ");
+    if (cidade1.populacao > cidade2.populacao) {
+        printf("Cidade A01 vence!\n");
+        resultado = 1;
+    } else {
+        printf("Cidade B02 vence!\n");
+        resultado = 0;
+    }
+
+    // Comparando área
+    printf("Comparando Área: ");
+    if (cidade1.area > cidade2.area) {
+        printf("Cidade A01 vence!\n");
+    } else {
+        printf("Cidade B02 vence!\n");
+    }
+
+    // Comparando PIB
+    printf("Comparando PIB: ");
+    if (cidade1.pib > cidade2.pib) {
+        printf("Cidade A01 vence!\n");
+    } else {
+        printf("Cidade B02 vence!\n");
+    }
+
+    // Comparando pontos turísticos
+    printf("Comparando Pontos Turísticos: ");
+    if (cidade1.pontos_turisticos > cidade2.pontos_turisticos) {
+        printf("Cidade A01 vence!\n");
+    } else {
+        printf("Cidade B02 vence!\n");
+    }
+
+    // Comparando Densidade Populacional (menor valor vence)
+    printf("Comparando Densidade Populacional: ");
+    if (cidade1.densidade_populacional < cidade2.densidade_populacional) {
+        printf("Cidade A01 vence!\n");
+    } else {
+        printf("Cidade B02 vence!\n");
+    }
+
+    // Comparando Super Poder
+    printf("Comparando Super Poder: ");
+    if (cidade1.super_poder > cidade2.super_poder) {
+        printf("Cidade A01 vence!\n");
+    } else {
+        printf("Cidade B02 vence!\n");
+    }
+}
+
+int main() {
+    Cidade cidade1, cidade2;
+
+    // Cadastro da primeira cidade
+    printf("Cadastro da Cidade A01:\n");
+    printf("Populacao (em milhões): ");
+    scanf("%lu", &cidade1.populacao);
+    printf("Area (em km²): ");
+    scanf("%f", &cidade1.area);
+    printf("PIB (em bilhões de USD): ");
+    scanf("%f", &cidade1.pib);
+    printf("Numero de pontos turisticos: ");
+    scanf("%d", &cidade1.pontos_turisticos);
+
+    // Cálculo dos atributos da Cidade A01
+    calcular_atributos(&cidade1);
+    calcular_super_poder(&cidade1);
+
+    // Cadastro da segunda cidade
+    printf("\nCadastro da Cidade B02:\n");
+    printf("Populacao (em milhões): ");
+    scanf("%lu", &cidade2.populacao);
+    printf("Area (em km²): ");
+    scanf("%f", &cidade2.area);
+    printf("PIB (em bilhões de USD): ");
+    scanf("%f", &cidade2.pib);
+    printf("Numero de pontos turisticos: ");
+    scanf("%d", &cidade2.pontos_turisticos);
+
+    // Cálculo dos atributos da Cidade B02
+    calcular_atributos(&cidade2);
+    calcular_super_poder(&cidade2);
+
+    // Exibição dos dados cadastrados
+    printf("\nDados cadastrados:\n");
+
+    printf("\nCidade A01:\n");
+    printf("Populacao: %lu\n", cidade1.populacao);
+    printf("Area: %.2f km²\n", cidade1.area);
+    printf("PIB: %.2f bilhões de USD\n", cidade1.pib);
+    printf("Numero de pontos turisticos: %d\n", cidade1.pontos_turisticos);
+    printf("Densidade Populacional: %.2f habitantes/km²\n", cidade1.densidade_populacional);
+    printf("PIB per capita: %.2f USD\n", cidade1.pib_per_capita);
+    printf("Super Poder: %.2f\n", cidade1.super_poder);
+
+    printf("\nCidade B02:\n");
+    printf("Populacao: %lu\n", cidade2.populacao);
+    printf("Area: %.2f km²\n", cidade2.area);
+    printf("PIB: %.2f bilhões de USD\n", cidade2.pib);
+    printf("Numero de pontos turisticos: %d\n", cidade2.pontos_turisticos);
+    printf("Densidade Populacional: %.2f habitantes/km²\n", cidade2.densidade_populacional);
+    printf("PIB per capita: %.2f USD\n", cidade2.pib_per_capita);
+    printf("Super Poder: %.2f\n", cidade2.super_poder);
+
+    // Comparação dos atributos
+    printf("\nResultado da Comparacao:\n");
+    comparar_atributos(cidade1, cidade2);
+
+    return 0;
+}
